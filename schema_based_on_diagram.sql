@@ -34,15 +34,15 @@ create table invoice_items(
     invoice_id int not null references invoices(id),
     treatment_id int not null references treatments(id)
 );
-/* many to many table */
- create table medical_history_details(
-    id serial not null primary key,
-    medical_history_id int not null references medical_histories(id),
-    treatmnets_id int not null references treatments(id),
+/* many join table */
+CREATE TABLE medical_treatments (
+    id SERIAL PRIMARY KEY,
+    medical_id INT,
+    treatment_id INT,
     description varchar(255) not null,
-   
-); 
-
+    CONSTRAINT fk_medical FOREIGN KEY(medical_id) REFERENCES medical_histories(id),
+    CONSTRAINT fk_treatments FOREIGN KEY(treatment_id) REFERENCES treatments(id)
+);
 
 /* Create Index */
 CREATE INDEX medical_histories_patient_id_idx ON medical_histories(patient_id);
